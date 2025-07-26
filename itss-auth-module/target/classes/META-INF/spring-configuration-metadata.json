@@ -1,0 +1,84 @@
+{
+  "groups": [
+    {
+      "name": "app",
+      "type": "com.itss.auth.config.AppConfig",
+      "sourceType": "com.itss.auth.config.AppConfig"
+    },
+    {
+      "name": "app.invitation",
+      "type": "com.itss.auth.config.ApplicationConfig$Invitation",
+      "sourceType": "com.itss.auth.config.ApplicationConfig",
+      "sourceMethod": "public com.itss.auth.config.ApplicationConfig.Invitation getInvitation() "
+    },
+    {
+      "name": "app.password-reset",
+      "type": "com.itss.auth.config.ApplicationConfig$PasswordReset",
+      "sourceType": "com.itss.auth.config.ApplicationConfig",
+      "sourceMethod": "public com.itss.auth.config.ApplicationConfig.PasswordReset getPasswordReset() "
+    },
+    {
+      "name": "jwt",
+      "type": "com.itss.auth.config.JwtConfig",
+      "sourceType": "com.itss.auth.config.JwtConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "app.base-url",
+      "type": "java.lang.String",
+      "sourceType": "com.itss.auth.config.AppConfig"
+    },
+    {
+      "name": "app.frontend-url",
+      "type": "java.lang.String",
+      "sourceType": "com.itss.auth.config.AppConfig"
+    },
+    {
+      "name": "app.invitation-token-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.AppConfig"
+    },
+    {
+      "name": "app.invitation.expiration-hours",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.ApplicationConfig$Invitation"
+    },
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "sourceType": "com.itss.auth.config.ApplicationConfig"
+    },
+    {
+      "name": "app.password-reset-token-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.AppConfig"
+    },
+    {
+      "name": "app.password-reset.expiration-minutes",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.ApplicationConfig$PasswordReset"
+    },
+    {
+      "name": "app.version",
+      "type": "java.lang.String",
+      "sourceType": "com.itss.auth.config.ApplicationConfig"
+    },
+    {
+      "name": "jwt.access-token-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.JwtConfig"
+    },
+    {
+      "name": "jwt.refresh-token-expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.itss.auth.config.JwtConfig"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.itss.auth.config.JwtConfig"
+    }
+  ],
+  "hints": []
+}
