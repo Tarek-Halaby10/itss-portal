@@ -29,6 +29,7 @@ public class RefreshToken {
     private Instant createdAt;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean revoked = false;
 
     @PrePersist
