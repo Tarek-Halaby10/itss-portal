@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITSS Portal Invitation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #007bff; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .button { display: inline-block; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ITSS Portal Invitation</h1>
+        </div>
+        <div class="content">
+            <h2>You're Invited!</h2>
+            <p>You have been invited to join ITSS Portal with the role: <strong th:text="${roleName}">Role</strong></p>
+            <p>Click the button below to accept your invitation and create your account:</p>
+            <p style="text-align: center;">
+                <a th:href="${acceptUrl}" class="button">Accept Invitation</a>
+            </p>
+            <p>Or copy and paste this link into your browser:</p>
+            <p style="word-break: break-all;" th:text="${acceptUrl}">Accept URL</p>
+            <p>Your invitation token is: <code th:text="${token}">TOKEN</code></p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 ITSS Portal. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html> 
