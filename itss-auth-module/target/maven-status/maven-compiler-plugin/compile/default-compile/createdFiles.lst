@@ -2,6 +2,7 @@ com\itss\auth\service\InviteService.class
 com\itss\auth\validation\UniqueEmail.class
 com\itss\auth\mapper\RoleMapperImpl.class
 com\itss\auth\service\impl\InviteServiceImpl.class
+com\itss\auth\controller\PermissionController.class
 com\itss\auth\exception\CustomExceptions$TokenExpiredException.class
 com\itss\auth\validation\UniqueUsername.class
 com\itss\auth\service\impl\AuditLogServiceImpl.class

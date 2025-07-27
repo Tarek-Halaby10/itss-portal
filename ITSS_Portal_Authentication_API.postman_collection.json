@@ -96,7 +96,16 @@
 							]
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"{{refreshToken}}\"\n}"
+						},
 						"url": {
 							"raw": "{{baseUrl}}/auth/logout",
 							"host": [
@@ -107,7 +116,7 @@
 								"logout"
 							]
 						},
-						"description": "Logout the current user and clear the security context."
+						"description": "Logout the current user, revoke refresh tokens, and clear the security context. Optionally include refresh token for validation."
 					},
 					"response": []
 				},

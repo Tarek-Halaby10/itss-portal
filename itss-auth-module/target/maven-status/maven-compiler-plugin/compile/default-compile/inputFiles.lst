@@ -7,6 +7,7 @@ D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\ser
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\AuthModuleApplication.java
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\dto\response\PermissionResponse.java
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\service\PermissionService.java
+D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\controller\PermissionController.java
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\validation\UniqueUsernameValidator.java
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\validation\UniqueUsername.java
 D:\portal\workspace\itss-portal\itss-auth-module\src\main\java\com\itss\auth\dto\request\LoginRequest.java
