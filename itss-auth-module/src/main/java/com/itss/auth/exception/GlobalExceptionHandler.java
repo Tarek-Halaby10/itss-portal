@@ -1,10 +1,13 @@
 package com.itss.auth.exception;
 
+import com.itss.auth.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,19 +15,33 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, Object>> handleValidationException(MethodArgumentNotValidException ex) {
-        Map<String, Object> error = new HashMap<>();
-        error.put("error", "VALIDATION_ERROR");
-        error.put("message", ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
-        return ResponseEntity.badRequest().body(error);
+    public ResponseEntity<ApiResponse<Map<String, String>>> handleValidationException(
+            MethodArgumentNotValidException ex, WebRequest request) {
+        Map<String, String> validationErrors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> 
+            validationErrors.put(error.getField(), error.getDefaultMessage())
+        );
+        
+        ApiResponse<Map<String, String>> response = ApiResponse.<Map<String, String>>builder()
+                .success(false)
+                .error("Validation failed")
+                .errorCode("VALIDATION_ERROR")
+                .data(validationErrors)
+                .path(request.getDescription(false).replace("uri=", ""))
+                .build();
+                
+        return ResponseEntity.badRequest().body(response);
     }
 
     @ExceptionHandler(CustomExceptions.UserNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> handleUserNotFoundException(CustomExceptions.UserNotFoundException ex) {
-        Map<String, Object> error = new HashMap<>();
-        error.put("error", "USER_NOT_FOUND");
-        error.put("message", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    public ResponseEntity<ApiResponse<Void>> handleUserNotFoundException(
+            CustomExceptions.UserNotFoundException ex, WebRequest request) {
+        ApiResponse<Void> response = ApiResponse.error(
+                ex.getMessage(), 
+                "USER_NOT_FOUND",
+                request.getDescription(false).replace("uri=", "")
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     @ExceptionHandler(CustomExceptions.EmailAlreadyExistsException.class)

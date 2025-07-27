@@ -96,7 +96,7 @@ public class AuthController {
             // If refresh token is provided in request body, validate it belongs to this user
             if (request != null && request.getRefreshToken() != null) {
                 Optional<RefreshToken> refreshTokenOpt = refreshTokenService.findByToken(request.getRefreshToken());
-                if (refreshTokenOpt.isEmpty() || !refreshTokenOpt.get().getUser().getId().equals(user.getId())) {
+                if (refreshTokenOpt.isEmpty() || !refreshTokenOpt.get().getUser().getId().equals(user.getId()) || refreshTokenOpt.get().isRevoked()) {
                     return ResponseEntity.status(401).body(Map.of("error", "Invalid session or user is not signed in"));
                 }
             }
