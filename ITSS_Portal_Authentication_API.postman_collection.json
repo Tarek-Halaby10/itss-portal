@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "12345678-1234-1234-1234-123456789012",
 		"name": "ITSS Portal Authentication API",
-		"description": "Complete API collection for ITSS Portal Authentication Module with JWT authentication, user management, role management, and audit logging.",
+		"description": "Complete API collection for ITSS Portal Authentication Module with JWT authentication, user management, role management, permissions management, and audit logging.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "12345678"
 	},
@@ -83,6 +83,35 @@
 					"response": []
 				},
 				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout the current user and clear the security context."
+					},
+					"response": []
+				},
+				{
 					"name": "Refresh Token",
 					"request": {
 						"method": "POST",
@@ -107,110 +136,6 @@
 							]
 						},
 						"description": "Refresh access token using refresh token."
-					},
-					"response": []
-				},
-				{
-					"name": "Invite User",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\": \"invited@example.com\",\n    \"roleId\": 2\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/invite?invitedBy=admin",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"invite"
-							],
-							"query": [
-								{
-									"key": "invitedBy",
-									"value": "admin"
-								}
-							]
-						},
-						"description": "Invite a user by email with a specific role."
-					},
-					"response": []
-				},
-				{
-					"name": "Approve User",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/auth/approve/{{userId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"approve",
-								"{{userId}}"
-							]
-						},
-						"description": "Approve a pending user by ID."
-					},
-					"response": []
-				},
-				{
-					"name": "Decline User",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/auth/decline/{{userId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"decline",
-								"{{userId}}"
-							]
-						},
-						"description": "Decline a pending user by ID."
 					},
 					"response": []
 				},
@@ -271,7 +196,7 @@
 					"response": []
 				}
 			],
-			"description": "Authentication endpoints for user registration, login, token refresh, invitations, and password reset."
+			"description": "Authentication endpoints for user registration, login, logout, token refresh, and password reset."
 		},
 		{
 			"name": "User Management",
@@ -392,6 +317,104 @@
 					"response": []
 				},
 				{
+					"name": "Invite User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"invited@example.com\",\n    \"roleId\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/invite",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"invite"
+							]
+						},
+						"description": "Invite a user by email with a specific role. Requires INVITE_USER permission."
+					},
+					"response": []
+				},
+				{
+					"name": "Approve User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/approve/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"approve",
+								"{{userId}}"
+							]
+						},
+						"description": "Approve a pending user by ID. Requires APPROVE_USER permission."
+					},
+					"response": []
+				},
+				{
+					"name": "Decline User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/decline/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"decline",
+								"{{userId}}"
+							]
+						},
+						"description": "Decline a pending user by ID. Requires DECLINE_USER permission."
+					},
+					"response": []
+				},
+				{
 					"name": "Block User",
 					"request": {
 						"auth": {
@@ -422,7 +445,7 @@
 					"response": []
 				}
 			],
-			"description": "User management endpoints for viewing and blocking users."
+			"description": "User management endpoints for viewing, inviting, approving, declining, and blocking users."
 		},
 		{
 			"name": "Role Management",
@@ -631,6 +654,69 @@
 			"description": "Role management endpoints for CRUD operations on roles and permission assignment."
 		},
 		{
+			"name": "Permission Management",
+			"item": [
+				{
+					"name": "Get All Permissions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/permissions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions"
+							]
+						},
+						"description": "Retrieve all permissions. Requires VIEW_PERMISSIONS permission."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permission by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/permissions/{{permissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"permissions",
+								"{{permissionId}}"
+							]
+						},
+						"description": "Retrieve a specific permission by ID. Requires VIEW_PERMISSIONS permission."
+					},
+					"response": []
+				}
+			],
+			"description": "Permission management endpoints for viewing available permissions."
+		},
+		{
 			"name": "Audit Logs",
 			"item": [
 				{
@@ -749,6 +835,11 @@
 		},
 		{
 			"key": "roleId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "permissionId",
 			"value": "1",
 			"type": "string"
 		}

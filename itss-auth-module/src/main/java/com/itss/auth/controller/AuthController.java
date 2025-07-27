@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -26,11 +26,6 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private com.itss.auth.security.JwtUtil jwtUtil;
-
-    @GetMapping("/test")
-public ResponseEntity<?> test() {
-    return ResponseEntity.ok(Map.of("message", "Auth endpoint is working!", "timestamp", System.currentTimeMillis()));
-}
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest request) {
@@ -54,10 +49,22 @@ public ResponseEntity<?> test() {
             String refreshToken = jwtUtil.generateRefreshToken(userDetails.getUsername(), Map.of());
             return ResponseEntity.ok(Map.of(
                 "accessToken", token,
-                "refreshToken", refreshToken
+                "refreshToken", refreshToken,
+                "message", "Login successful"
             ));
         } catch (Exception e) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
+        }
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        try {
+            // Clear the security context
+            SecurityContextHolder.clearContext();
+            return ResponseEntity.ok(Map.of("message", "Logout successful"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
@@ -72,36 +79,6 @@ public ResponseEntity<?> test() {
             return ResponseEntity.ok(Map.of("accessToken", token));
         } catch (Exception e) {
             return ResponseEntity.status(401).body(Map.of("error", "Invalid refresh token"));
-        }
-    }
-
-    @PostMapping("/invite")
-    public ResponseEntity<?> invite(@RequestBody UserInviteRequest request, @RequestParam String invitedBy) {
-        try {
-            userService.inviteUser(request, invitedBy);
-            return ResponseEntity.ok(Map.of("message", "Invite sent"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-    @PostMapping("/approve/{userId}")
-    public ResponseEntity<?> approve(@PathVariable Long userId) {
-        try {
-            userService.approveUser(userId);
-            return ResponseEntity.ok(Map.of("message", "User approved"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        }
-    }
-
-    @PostMapping("/decline/{userId}")
-    public ResponseEntity<?> decline(@PathVariable Long userId) {
-        try {
-            userService.declineUser(userId);
-            return ResponseEntity.ok(Map.of("message", "User declined"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
 
