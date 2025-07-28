@@ -11,6 +11,7 @@ com\itss\auth\exception\CustomExceptions.class
 com\itss\auth\entity\Invite.class
 com\itss\auth\repository\RoleRepository.class
 com\itss\auth\entity\RoleTemplate$RoleTemplateBuilder.class
+com\itss\auth\dto\response\ApiResponse.class
 com\itss\auth\entity\Permission.class
 com\itss\auth\repository\RoleTemplateRepository.class
 com\itss\auth\repository\RefreshTokenRepository.class
@@ -33,15 +34,19 @@ com\itss\auth\security\PermissionConstants.class
 com\itss\auth\dto\request\RoleUpdateRequest.class
 com\itss\auth\exception\CustomExceptions$UserNotFoundException.class
 com\itss\auth\entity\RefreshToken.class
+com\itss\auth\config\OpenApiConfig.class
 com\itss\auth\exception\CustomExceptions$UsernameAlreadyExistsException.class
 com\itss\auth\service\impl\PasswordResetServiceImpl.class
 com\itss\auth\exception\CustomExceptions$EmailAlreadyExistsException.class
 com\itss\auth\controller\UserController.class
+com\itss\auth\dto\response\ApiResponse$ApiResponseBuilder.class
+com\itss\auth\dto\response\PaginatedResponse.class
 com\itss\auth\service\RoleService.class
 com\itss\auth\service\InviteService.class
 com\itss\auth\validation\UniqueEmail.class
 com\itss\auth\service\impl\InviteServiceImpl.class
 com\itss\auth\controller\PermissionController.class
+com\itss\auth\dto\response\PaginatedResponse$PaginatedResponseBuilder.class
 com\itss\auth\dto\response\InviteResponse.class
 com\itss\auth\controller\RoleController.class
 com\itss\auth\dto\request\PasswordResetRequest.class
@@ -51,6 +56,7 @@ com\itss\auth\repository\AuditLogRepository.class
 com\itss\auth\entity\Role.class
 com\itss\auth\repository\PasswordResetTokenRepository.class
 com\itss\auth\service\AuditLogService.class
+com\itss\auth\config\CorsConfig.class
 com\itss\auth\mapper\PermissionMapper.class
 com\itss\auth\validation\UniqueUsernameValidator.class
 com\itss\auth\security\CustomUserDetailsService.class
